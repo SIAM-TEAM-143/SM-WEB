@@ -1,40 +1,21 @@
-import os
 import platform
-import time
-import sys
 
-# প্লাটফর্ম আর্কিটেকচার চেক
-arch = platform.architecture()[0]
-
-if arch == '64bit':
-    os.system('git pull')
-    os.system('clear')
-    print('[•] YOUR DEVICE IS 64 BIT')
-    time.sleep(2)
-
-    try:
-        from smweb import smweb
-        smweb()
-    except ImportError as e:
-        print(f"[!] Import Error: {e}")
-        print("[!] smweb.so ফাইলটি সঠিকভাবে compile হয়নি অথবা Python version mismatch.")
-        sys.exit(1)
-
-elif arch == '32bit':
-    os.system('git pull')
-    os.system('clear')
-    print('[•] YOUR DEVICE IS 32 BIT')
-    time.sleep(2)
-
-    try:
-        from smweb import smweb
-        smweb()
-    except ImportError as e:
-        print(f"[!] Import Error: {e}")
-        sys.exit(1)
-
+if platform.architecture()[0] != "64bit":
+    print("32bit Not Supported!")
 else:
-    print("[!] Unknown architecture!")
+    try:
+        import smweb
 
-os.system('clear')
-print('\x1b[1;97m Soon Your Device Supported Tools ')
+        # Start the module's main entry point
+        if hasattr(smweb, "main_menu"):
+            smweb.main_menu()
+        elif hasattr(smweb, "main"):
+            smweb.main()
+        else:
+            print("Error: xotp has no main_menu() or main() function.")
+
+    except Exception as e:
+        import traceback
+        print(f"\nCRITICAL ERROR: {e}")
+        traceback.print_exc()
+        input("\nPress Enter to exit...")
