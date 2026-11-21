@@ -4,13 +4,13 @@ if platform.architecture()[0] != "64bit":
     print("32bit Not Supported!")
 else:
     try:
-        import smweb
+        import metav10
 
         # Start the module's main entry point
-        if hasattr(smweb, "main_menu"):
-            smweb.main_menu()
-        elif hasattr(smweb, "main"):
-            smweb.main()
+        if hasattr(metav10, "main_menu"):
+            metav10.main_menu()
+        elif hasattr(metav10, "main"):
+            metav10.main()
         else:
             print("Error: xotp has no main_menu() or main() function.")
 
